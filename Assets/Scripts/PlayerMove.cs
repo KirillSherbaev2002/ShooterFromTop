@@ -17,7 +17,8 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] Transform pistolPos;
 
-    [SerializeField] float PlayerHP = 1000;
+    [SerializeField] float PlayerHP;
+    public float TotalHp;
 
     public Image HPRate;
 
@@ -32,6 +33,7 @@ public class PlayerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         // Почему не работает ? UpdateHealth += Damage();
+        PlayerHP = TotalHp;
     }
 
     private void FixedUpdate()
@@ -93,7 +95,7 @@ public class PlayerMove : MonoBehaviour
     {
         PlayerHP -= Random.Range(70, 130);
         Instantiate(BloodyEffect, new Vector3(transform.position.x, transform.position.y, transform.position.z - 2), transform.rotation);
-        HPRate.fillAmount = PlayerHP / 1000;
+        HPRate.fillAmount = PlayerHP / TotalHp;
         IsAlive();
     }
 

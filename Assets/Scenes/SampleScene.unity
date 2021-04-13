@@ -729,7 +729,7 @@ MonoBehaviour:
   time: 0
   player: {fileID: 0}
   YouWon: {fileID: 368926338}
-  NeedsToBeKilled: 200
+  NeedsToBeKilled: 600
 --- !u!4 &1062603593
 Transform:
   m_ObjectHideFlags: 0
@@ -29410,7 +29410,8 @@ MonoBehaviour:
   BloodyEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   GoldenPistol: {fileID: 1462041868}
   pistolPos: {fileID: 263606878312232196}
-  PlayerHP: 1000
+  PlayerHP: 0
+  TotalHp: 1000
   HPRate: {fileID: 1807830785}
   pistolLevel: 1
   ZombieKilled: 0
