@@ -25,19 +25,11 @@ public class ZombieSpawner : MonoBehaviour
 
         if (Zombies.Length <= currentLenght && currentLenght <= NeedsToBeKilled)
         {
-            SpawnZombie();
             if (Zombies.Length <= currentLenght && currentLenght <= NeedsToBeKilled)
             {
                 UpdateZombie();
             }
         }
-    }
-
-    void SpawnZombie()
-    {
-        var SpawnPlace = new Vector3(player.transform.position.x + Random.Range(15, -15), player.transform.position.y + Random.Range(15, -15), -5);
-        Instantiate(ZombiePref, SpawnPlace, transform.rotation);
-        Instantiate(SpawnEffect, SpawnPlace, transform.rotation);
     }
 
     public void SceneReload()

@@ -8,7 +8,6 @@ public class Zombie : MonoBehaviour
     Animator anim;
     PlayerMove player;
     Rigidbody2D rb;
-    ZombieSpawner zs;
 
     public float[] speedScale = new float[3];
     public float speed;
@@ -24,7 +23,7 @@ public class Zombie : MonoBehaviour
 
     public Vector3 Start;
 
-    public GameObject[] WayPoint;
+    public GameObject FireItself;
 
     public Image HPRateZombie;
 
@@ -36,7 +35,6 @@ public class Zombie : MonoBehaviour
         anim = GetComponent<Animator>();
         Start = transform.position;
         ZombieStartHP = ZombieHP;
-        zs = FindObjectOfType<ZombieSpawner>();
     }
 
     void FixedUpdate()
@@ -60,10 +58,6 @@ public class Zombie : MonoBehaviour
             {
                 Stand();
             }
-            else
-            {
-                MoveBack();
-            }
         }
     }
     public void Attack()
@@ -71,13 +65,7 @@ public class Zombie : MonoBehaviour
         anim.SetTrigger("Attack");
 
         Vector3 zombiePoition = transform.position;
-        Vector3 playerPosition = player.transform.position;
-
-        Vector3 direction = playerPosition - zombiePoition;
-
-        Move(direction);
         speed = speedScale[2];
-        Rotate(direction);
     }
 
     public void Follow()
@@ -85,36 +73,14 @@ public class Zombie : MonoBehaviour
         anim.SetTrigger("Follow");
 
         Vector3 zombiePoition = transform.position;
-        Vector3 playerPosition = player.transform.position;
-
-        Vector3 direction = playerPosition - zombiePoition;
-        Move(direction);
         speed = speedScale[1];
-        Rotate(direction);
     }
 
     public void Stand()
     {
         anim.SetTrigger("Stand");
-        Vector3 playerPosition = player.transform.position;
-        Vector3 zombiePoition = transform.position;
-
-        Vector3 direction = playerPosition - zombiePoition;
-        Rotate(direction);
 
         speed = speedScale[0];
-    }
-
-    public void MoveBack()
-    {
-        anim.SetTrigger("Follow");
-        Vector3 playerPosition = Start;
-        Vector3 zombiePoition = transform.position;
-
-        Vector3 direction = playerPosition - zombiePoition;
-        Move(direction);
-        speed = speedScale[1];
-        Rotate(direction);
     }
 
     void Move(Vector3 direction)
@@ -137,6 +103,11 @@ public class Zombie : MonoBehaviour
         {
             ZombieHP -= 30;
             collision.gameObject.SetActive(false);
+            if(collision.gameObject.GetComponent<BulletBeh>().typeOfBullet == 2)
+            {
+                ZombieHP -= 50;
+                FireItself.SetActive(true);
+            }
             if (ZombieHP <= 0)
             {
                 anim.SetTrigger("Death");
@@ -163,13 +134,6 @@ public class Zombie : MonoBehaviour
         player.PistolUpgradeCheck();
         player.ZombieKilled++;
         player.ZombieKilledText.text = player.ZombieKilled.ToString();
-        zs.currentLenght++;
-        zs.UpdateZombie();
-        if (player.ZombieKilled >= zs.NeedsToBeKilled)
-        {
-            zs.YouWon.SetActive(true);
-            Time.timeScale = 0f;
-        }
         Destroy(gameObject);
     }
     void AttackPlayer()

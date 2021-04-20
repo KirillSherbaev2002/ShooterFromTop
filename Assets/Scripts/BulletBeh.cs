@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class BulletBeh : MonoBehaviour
 {
@@ -10,21 +9,21 @@ public class BulletBeh : MonoBehaviour
 
     public GameObject[] Blood = new GameObject[8];
 
+    public Sprite[] Bullets = new Sprite[3];
+
     Rigidbody2D rb;
-    void Start()
+
+    public int typeOfBullet;
+    void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
+        typeOfBullet = Random.Range(0,3);
+        gameObject.GetComponent<SpriteRenderer>().sprite = Bullets[typeOfBullet];
     }
     void Update()
     {
         rb.velocity = -transform.up * speed;
     }
-
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Zombie")

@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
     public Image HPRate;
 
     public int pistolLevel;
-    int interval = 0;
+    int interval;
     public int ZombieKilled;
     public TMP_Text ZombieKilledText;
 
@@ -63,12 +63,21 @@ public class PlayerMove : MonoBehaviour
     {
         if (pistolLevel == 1)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
-                anim.SetTrigger("Shoot");
-                Instantiate(BulletPref, pistolPos.transform.position, pistolPos.transform.rotation);
+                if (interval == 0)
+                {
+                    anim.SetTrigger("Shoot");
+                    Instantiate(BulletPref, pistolPos.transform.position, pistolPos.transform.rotation);
+                }
+                interval++;
+                if (interval >= 11)
+                {
+                    interval = 0;
+                }
             }
         }
+        
         if (pistolLevel == 2)
         {
             if (Input.GetKey(KeyCode.Mouse0))
@@ -81,6 +90,26 @@ public class PlayerMove : MonoBehaviour
                     if(interval >= 9)
                     {
                         interval = 0; 
+                    }
+                }
+                else
+                {
+                    interval++;
+                }
+            }
+        }
+        if (pistolLevel == 3)
+        {
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                if (interval >= 3)
+                {
+                    anim.SetTrigger("Shoot");
+                    Instantiate(BulletPref, pistolPos.transform.position, pistolPos.transform.rotation);
+                    interval++;
+                    if (interval >= 20)
+                    {
+                        interval = 0;
                     }
                 }
                 else
