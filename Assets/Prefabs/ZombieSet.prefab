@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2468709050630982299}
   - component: {fileID: 2468709050630982298}
   - component: {fileID: 2468709050630982297}
-  - component: {fileID: 2468709050630982296}
   - component: {fileID: 2468709050630982300}
   - component: {fileID: 2468709050630982301}
   m_Layer: 0
@@ -105,30 +104,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2468709050630982296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2468709050630982295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a04ea2246f45b625f6486d2954a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedScale:
-  - 0
-  - 0.3
-  - 1
-  speed: 3
-  LightColor:
-  - {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  ZombieHP: 100
-  Start: {x: 0, y: 0, z: 0}
-  FireItself: {fileID: 81666013045639339}
-  HPRateZombie: {fileID: 7749567531765434445}
 --- !u!58 &2468709050630982300
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -478,12 +453,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
---- !u!1 &81666013045639339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100004, guid: 1c20c7996d683754db1f0f62a361952c,
-    type: 3}
-  m_PrefabInstance: {fileID: 81666013045673487}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &81666013045281931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 1c20c7996d683754db1f0f62a361952c,

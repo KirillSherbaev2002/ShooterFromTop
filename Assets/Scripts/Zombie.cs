@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
+using Pathfinding;
 
 public class Zombie : MonoBehaviour
 {
     Animator anim;
     PlayerMove player;
     Rigidbody2D rb;
+    AIPath aiPath;
+    AIDestinationSetter destinationSetter;
 
     public float[] speedScale = new float[3];
     public float speed;
@@ -29,6 +30,8 @@ public class Zombie : MonoBehaviour
 
     void Awake()
     {
+        aiPath = GetComponent<AIPath>();
+        destinationSetter = GetComponent<AIDestinationSetter>();
         gameObject.GetComponent<SpriteRenderer>().color = LightColor[0];
         player = FindObjectOfType<PlayerMove>();
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -40,16 +43,19 @@ public class Zombie : MonoBehaviour
     void FixedUpdate()
     {
         distance = Vector3.Distance(transform.position, player.transform.position);
+        print(distance);
         if (ZombieHP>=0)
         {
             anim.SetTrigger("Stand");
         }
         if (distance <= DistanceScale[0])
         {
+            aiPath.enabled = true;
             Attack();
         }
         if (distance <= DistanceScale[1] && distance >= DistanceScale[0])
         {
+            aiPath.enabled = true;
             Follow();
         }
         if (distance >= DistanceScale[1])
@@ -57,6 +63,7 @@ public class Zombie : MonoBehaviour
             if(Mathf.Round(transform.position.x) == Mathf.Round(Start.x)&& (Mathf.Round(transform.position.y) == Mathf.Round(Start.y)))
             {
                 Stand();
+                aiPath.enabled = false;
             }
         }
     }
@@ -71,15 +78,13 @@ public class Zombie : MonoBehaviour
     public void Follow()
     {
         anim.SetTrigger("Follow");
-
+        destinationSetter.target = player.transform;
         Vector3 zombiePoition = transform.position;
-        speed = speedScale[1];
     }
 
     public void Stand()
     {
         anim.SetTrigger("Stand");
-
         speed = speedScale[0];
     }
 

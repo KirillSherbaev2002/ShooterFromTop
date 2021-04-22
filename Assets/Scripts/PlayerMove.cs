@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+    private SoundScript SS;
 
     public GameObject BulletPref;
     public GameObject BloodyEffect;
@@ -28,8 +29,12 @@ public class PlayerMove : MonoBehaviour
     public TMP_Text ZombieKilledText;
 
     public UnityAction UpdateHealth;
+
+    public AudioClip ShootSound;
+    public AudioClip RoundSound;
     void Awake()
     {
+        SS = FindObjectOfType<SoundScript>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         // Почему не работает ? UpdateHealth += Damage();
@@ -67,6 +72,7 @@ public class PlayerMove : MonoBehaviour
             {
                 if (interval == 0)
                 {
+                    SS.PlayShoot(ShootSound);
                     anim.SetTrigger("Shoot");
                     Instantiate(BulletPref, pistolPos.transform.position, pistolPos.transform.rotation);
                 }
@@ -84,6 +90,7 @@ public class PlayerMove : MonoBehaviour
             {
                 if (interval >= 6)
                 {
+                    SS.PlayALot();
                     anim.SetTrigger("Shoot");
                     Instantiate(BulletPref, pistolPos.transform.position, pistolPos.transform.rotation);
                     interval++;
